@@ -1,0 +1,28 @@
+{
+  "name": ".",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.ts",
+  "scripts": {
+    "start": "nodemon src/index.ts",
+    "build": "tsc"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/cors": "latest",
+    "@types/express": "latest",
+    "@types/node": "latest",
+    "nodemon": "latest"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "latest",
+    "dotenv": "latest",
+    "express": "latest",
+    "jsonwebtoken": "^9.0.2",
+    "ts-node": "latest",
+    "typescript": "latest"
+  },
+  "devDependencies.@types/dotenv": "latest"
+}

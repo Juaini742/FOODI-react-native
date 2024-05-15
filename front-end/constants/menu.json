@@ -1,0 +1,141 @@
+[
+    {
+      "id": 1,
+      "name": "Nasi Goreng",
+      "price": 25000,
+      "img": "https://res.cloudinary.com/dixdqxpza/image/upload/v1712473974/card_3_ppvpvv.png",
+      "location": "Warung Sederhana"
+    },
+    {
+      "id": 2,
+      "name": "Mie Ayam",
+      "price": 20000,
+      "img": "https://res.cloudinary.com/dixdqxpza/image/upload/v1712473974/card_3_ppvpvv.png",
+      "location": "Bakmi Jogja"
+    },
+    {
+      "id": 3,
+      "name": "Ayam Goreng",
+      "price": 30000,
+      "img": "https://res.cloudinary.com/dixdqxpza/image/upload/v1712473974/card_3_ppvpvv.png",
+      "location": "RM Sambalado"
+    },
+    {
+      "id": 4,
+      "name": "Soto Ayam",
+      "price": 22000,
+      "img": "https://res.cloudinary.com/dixdqxpza/image/upload/v1712473974/card_3_ppvpvv.png",
+      "location": "Warung Soto"
+    },
+    {
+      "id": 5,
+      "name": "Bakso",
+      "price": 18000,
+      "img": "https://res.cloudinary.com/dixdqxpza/image/upload/v1712473974/card_3_ppvpvv.png",
+      "location": "Bakso Pak Kumis"
+    },
+    {
+      "id": 6,
+      "name": "Nasi Padang",
+      "price": 35000,
+      "img": "https://res.cloudinary.com/dixdqxpza/image/upload/v1712473974/card_3_ppvpvv.png",
+      "location": "Sederhana Padang"
+    },
+    {"id": 7,
+      "name": "Martabak",
+      "price": 25000,
+      "img": "https://res.cloudinary.com/dixdqxpza/image/upload/v1712473974/card_3_ppvpvv.png",
+      "location": "Martabak Manis"
+    },
+    {
+      "id": 8,
+      "name": "Sate Ayam",
+      "price": 30000,
+      "img": "https://res.cloudinary.com/dixdqxpza/image/upload/v1712473974/card_3_ppvpvv.png",
+      "location": "Sate Taichan"
+    },
+    {
+      "id": 9, 
+      "name": "Gado-Gado",
+      "price": 20000,
+      "img": "https://res.cloudinary.com/dixdqxpza/image/upload/v1712473974/card_3_ppvpvv.png",
+      "location": "Gado-Gado Bu Endang"
+    },
+    {
+      "id": 10,
+      "name": "Nasi Uduk",
+      "price": 23000,
+      "img": "https://res.cloudinary.com/dixdqxpza/image/upload/v1712473974/card_3_ppvpvv.png",
+      "location": "Nasi Uduk Betawi"
+    },
+    {
+      "id": 11,
+      "name": "Sop Buntut",
+      "price": 40000,
+      "img": "https://res.cloudinary.com/dixdqxpza/image/upload/v1712473974/card_3_ppvpvv.png",
+      "location": "Sop Buntut Mbah Suro"
+    },
+    {
+      "id": 12,
+      "name": "Pecel Lele",
+      "price": 18000,
+      "img": "https://res.cloudinary.com/dixdqxpza/image/upload/v1712473974/card_3_ppvpvv.png",
+      "location": "Pecel Lele Mas Mbok Tumini"
+    },
+    {
+      "id": 13,
+      "name": "Bakmi Godog",
+      "price": 22000,
+      "img": "https://res.cloudinary.com/dixdqxpza/image/upload/v1712473974/card_3_ppvpvv.png",
+      "location": "Bakmi Karet Tengsin"
+    },
+    {
+      "id": 14,
+      "name": "Rendang",
+      "price": 35000,
+      "img": "https://res.cloudinary.com/dixdqxpza/image/upload/v1712473974/card_3_ppvpvv.png",
+      "location": "Rendang Minang Asli"
+    },
+    {
+      "id": 15,
+      "name": "Sushi",
+      "price": 50000,
+      "img": "https://res.cloudinary.com/dixdqxpza/image/upload/v1712473974/card_3_ppvpvv.png",
+      "location": "Sushi Tei"
+    },
+    {
+      "id": 16,
+      "name": "Bakpia",
+      "price": 10000,
+      "img": "https://res.cloudinary.com/dixdqxpza/image/upload/v1712473974/card_3_ppvpvv.png",
+      "location": "Bakpia Pathok"
+    },
+    {
+      "id": 17,
+      "name": "Nasi Kuning",
+      "price": 25000,
+      "img": "https://res.cloudinary.com/dixdqxpza/image/upload/v1712473974/card_3_ppvpvv.png",
+      "location": "Nasi Kuning Bali"
+    },
+    {"id": 18,
+      "name": "Siomay",
+      "price": 18000,
+      "img": "https://res.cloudinary.com/dixdqxpza/image/upload/v1712473974/card_3_ppvpvv.png",
+      "location": "Siomay Kang Ujang"
+    },
+    {
+      "id": 19,
+      "name": "Bubur Ayam",
+      "price": 20000,
+      "img": "https://res.cloudinary.com/dixdqxpza/image/upload/v1712473974/card_3_ppvpvv.png",
+      "location": "Bubur Ayam Barokah"
+    },
+    {
+      "id": 20,
+      "name": "Ramen",
+      "price": 28000,
+      "img": "https://res.cloudinary.com/dixdqxpza/image/upload/v1712473974/card_3_ppvpvv.png",
+      "location": "Ramen Samurai"
+    }
+  ]
+  
