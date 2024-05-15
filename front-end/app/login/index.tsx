@@ -10,7 +10,6 @@ import {
   Dimensions,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigation } from "expo-router";
@@ -20,6 +19,7 @@ import ButtonLoading from "@/components/ButtonLoading";
 import InputController from "@/components/InputController";
 import RenderMessageError from "@/components/RenderInputError";
 import { LoginSchema, schema } from "@/interfaces/loginSchema";
+import { login } from "./login";
 
 function Page() {
   const {
@@ -33,7 +33,8 @@ function Page() {
 
   const onSubmit: SubmitHandler<LoginSchema> = async (data) => {
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    console.log(data);
+    // console.log(data);
+    login(data);
   };
 
   useLayoutEffect(() => {
