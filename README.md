@@ -52,67 +52,66 @@ npm start
 ```
 
 ## Folder Structure Front-End (React Native)
-front-end/
-├── api/                   # Folder for fetching data
-│   └── ...                # API files
-├── app/                   # Main application folder
-│   ├── (modals)/          # Collection of modals
-│   ├── (tabs)/            # Collection of tabs
-│   ├── address/           # Address form page
-│   │   └── ...            # Address form components and files
-│   ├── biodata/           # Biodata form page
-│   │   └── ...            # Biodata form components and files
-│   ├── categoryDetail/    # Category details page
-│   │   └── ...            # Category details components and files
-│   ├── greeting/          # Greeting page
-│   │   └── ...            # Greeting page components and files
-│   ├── login/             # Login page
-│   │   └── ...            # Login page components and files
-│   ├── productDetail/     # Product details page
-│   │   └── ...            # Product details components and files
-│   ├── register/          # Register page
-│   │   └── ...            # Register page components and files
-│   └── _layout.tsx        # Main layout file
-├── assets/                # All assets of the application
-│   └── ...                # Images, fonts, etc.
-├── components/            # All reusable components
-│   └── ...                # Component files
-├── constants/             # Constants of the application
-│   └── ...                # Constants files
-├── hooks/                 # Custom hooks
-│   └── ...                # Hook files
-├── interfaces/            # All interfaces
-│   └── ...                # Interface files
-└── ...                    # Other root-level files (e.g., package.json, README.md)
 
+front-end/
+├── api/ # Folder for fetching data
+│ └── ... # API files
+├── app/ # Main application folder
+│ ├── (modals)/ # Collection of modals
+│ ├── (tabs)/ # Collection of tabs
+│ ├── address/ # Address form page
+│ │ └── ... # Address form components and files
+│ ├── biodata/ # Biodata form page
+│ │ └── ... # Biodata form components and files
+│ ├── categoryDetail/ # Category details page
+│ │ └── ... # Category details components and files
+│ ├── greeting/ # Greeting page
+│ │ └── ... # Greeting page components and files
+│ ├── login/ # Login page
+│ │ └── ... # Login page components and files
+│ ├── productDetail/ # Product details page
+│ │ └── ... # Product details components and files
+│ ├── register/ # Register page
+│ │ └── ... # Register page components and files
+│ └── \_layout.tsx # Main layout file
+├── assets/ # All assets of the application
+│ └── ... # Images, fonts, etc.
+├── components/ # All reusable components
+│ └── ... # Component files
+├── constants/ # Constants of the application
+│ └── ... # Constants files
+├── hooks/ # Custom hooks
+│ └── ... # Hook files
+├── interfaces/ # All interfaces
+│ └── ... # Interface files
+└── ... # Other root-level files (e.g., package.json, README.md)
 
 ## Folder Structure Back-End (ExpressJs)
+
 backend/
-├── prisma/                # Prisma ORM
-│   ├── migrations/        # Migration files
-│   ├── schema.prisma      # Prisma schema file
-│   └── seed.ts            # Seed data for Prisma
-├── src/                   # Source folder
-│   ├── controller/        # All controllers
-│   │   └── ...            # Controller files
-│   ├── middleware/        # Middleware for routes
-│   │   └── ...            # Middleware files
-│   ├── router/            # All routes
-│   │   └── ...            # Route files
-│   ├── utilities/         # All custom functions
-│   │   └── ...            # Utility files
-│   ├── index.ts           # Main server file
-│   └── seed.ts            # Seed data script
-├── package.json           # Package file
-├── tsconfig.json          # TypeScript configuration
-└── ...                    # Other root-level files (e.g., README.md, .env)
-
-
-
+├── prisma/ # Prisma ORM
+│ ├── migrations/ # Migration files
+│ ├── schema.prisma # Prisma schema file
+│ └── seed.ts # Seed data for Prisma
+├── src/ # Source folder
+│ ├── controller/ # All controllers
+│ │ └── ... # Controller files
+│ ├── middleware/ # Middleware for routes
+│ │ └── ... # Middleware files
+│ ├── router/ # All routes
+│ │ └── ... # Route files
+│ ├── utilities/ # All custom functions
+│ │ └── ... # Utility files
+│ ├── index.ts # Main server file
+│ └── seed.ts # Seed data script
+├── package.json # Package file
+├── tsconfig.json # TypeScript configuration
+└── ... # Other root-level files (e.g., README.md, .env)
 
 ### Table API Backend
 
 #### Excel Data
+
 We have compiled some data in an Excel table which can be accessed [here](https://docs.google.com/spreadsheets/d/1dGyefZwPJHKyTtsoDeUjpRdSFIVgBqiRkRYkyMSlSw8/edit?usp=sharing).
 
 #### OR
