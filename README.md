@@ -53,7 +53,8 @@ npm start
 
 ## Folder Structure Front-End (React Native)
 
-FOODI/
+.
+. FOODI/
 ├── api/ # Folder for fetching data
 │ └── ... # API files
 ├── app/ # Main application folder
@@ -88,7 +89,8 @@ FOODI/
 
 ## Folder Structure Back-End (ExpressJs)
 
-FOODI-backend/
+.
+. FOODI-backend/
 ├── prisma/ # Prisma ORM
 │ ├── migrations/ # Migration files
 │ ├── schema.prisma # Prisma schema file
