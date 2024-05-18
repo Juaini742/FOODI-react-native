@@ -1,5 +1,8 @@
 import { rootStyle } from "@/constants/Style";
+import { Ionicons } from "@expo/vector-icons";
+import { Colors } from "@/constants/Colors";
 import {
+  Alert,
   FlatList,
   Image,
   StyleSheet,
@@ -7,20 +10,43 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import listMenu from "@/constants/menu.json";
-import { Colors } from "@/constants/Colors";
 import {
   GestureHandlerRootView,
   Swipeable,
 } from "react-native-gesture-handler";
-import { Ionicons } from "@expo/vector-icons";
+import { useCart } from "@/hooks/useCart";
+import { deleteCart, getCart } from "@/api/secured";
+import useCountStore from "@/hooks/useCountStore";
 
 function Page() {
-  const handleSelect = (id: number) => {
+  const { carts, setCarts } = useCart();
+  const { decrement } = useCountStore() as {
+    decrement: () => void;
+  };
+
+  const handleSelect = (id: string) => {
     console.log(id);
   };
-  const handleDelete = (id: number) => {
-    console.log(id);
+
+  const handleDelete = async (id: string) => {
+    await deleteCart(id);
+    Alert.alert(
+      "success",
+      "Product was deleted successfully",
+      [
+        {
+          text: "OK",
+          onPress: async () => {
+            const response = await getCart();
+            setCarts(response);
+            if (response) {
+              decrement();
+            }
+          },
+        },
+      ],
+      { cancelable: false }
+    );
   };
 
   return (
@@ -28,7 +54,7 @@ function Page() {
       <View style={[rootStyle.container, { position: "relative" }]}>
         <View style={styles.content}>
           <FlatList
-            data={listMenu}
+            data={carts}
             renderItem={({ item, index }) => (
               <Swipeable
                 renderRightActions={() => (
@@ -46,7 +72,10 @@ function Page() {
                   onPress={() => handleSelect(item.id)}
                   style={styles.itemContainer}
                 >
-                  <Image source={{ uri: item.img }} style={styles.img} />
+                  <Image
+                    source={{ uri: item.product.img }}
+                    style={styles.img}
+                  />
                   <View style={styles.textContainer}>
                     <Text
                       style={{
@@ -54,15 +83,16 @@ function Page() {
                         fontSize: 22,
                         fontFamily: "bold",
                         lineHeight: 24,
+                        width: 195,
                       }}
                     >
-                      {item.name}
+                      {item.product.name}
                     </Text>
                     <Text style={{ color: "white", fontSize: 14 }}>
-                      Quantity: 2
+                      Quantity: {item.quantity}
                     </Text>
                     <Text style={{ color: Colors.primary, fontSize: 18 }}>
-                      IDR. {item.price}
+                      IDR. {item.product.price.toFixed(3)}
                     </Text>
                   </View>
                 </TouchableOpacity>
@@ -71,7 +101,7 @@ function Page() {
           />
         </View>
         <View style={styles.totalContainer}>
-          <Text style={{ color: "white" }}>Total Price: IDR. 23.000</Text>
+          <Text style={{ color: "white" }}>Total Price: IDR. 32.000</Text>
           <TouchableOpacity style={rootStyle.btnPrimary2}>
             <Text
               style={{
@@ -115,7 +145,8 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 0,
     height: 60,
-    backgroundColor: "rgba(0,0,0,0.7)",
+    // backgroundColor: "rgba(0,0,0,0.7)",
+    backgroundColor: Colors.semiDark,
     left: 0,
     right: 0,
     borderTopRightRadius: 19,

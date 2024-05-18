@@ -1,3 +1,5 @@
+import { AppContextProvider, useAppContext } from "@/hooks/AppContext";
+import { ToastProvider } from "@/hooks/useToast";
 import { Ionicons } from "@expo/vector-icons";
 import { useFonts } from "expo-font";
 import { Stack, useRouter } from "expo-router";
@@ -26,6 +28,11 @@ const screenModals = [
     icon: <Ionicons name="arrow-back-outline" size={22} color="white" />,
   },
   {
+    name: "(modals)/bestSeller",
+    title: "Best Seller",
+    icon: <Ionicons name="arrow-back-outline" size={22} color="white" />,
+  },
+  {
     name: "(modals)/offer",
     title: "",
     icon: <Ionicons name="arrow-back-outline" size={22} color="white" />,
@@ -40,8 +47,6 @@ export default function RootLayout() {
     bold: require("../assets/fonts/Poppins-Bold.ttf"),
   });
 
-  const router = useRouter();
-
   useEffect(() => {
     if (loaded) {
       SplashScreen.hideAsync();
@@ -53,8 +58,30 @@ export default function RootLayout() {
   }
 
   return (
+    <AppContextProvider>
+      <ToastProvider>
+        <RootLayoutNav />
+      </ToastProvider>
+    </AppContextProvider>
+  );
+}
+
+function RootLayoutNav() {
+  const router = useRouter();
+  const { isLoggedIn } = useAppContext();
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      router.replace("(tabs)");
+      router.push("greeting");
+    } else {
+      router.replace("greeting");
+      router.push("(tabs)");
+    }
+  }, [isLoggedIn]);
+
+  return (
     <Stack>
-      <Stack.Screen name="index" options={{ headerShown: false }} />
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
 
       {screenModals.map((item, index) => (
@@ -79,58 +106,22 @@ export default function RootLayout() {
           }}
         />
       ))}
-      {/* <Stack.Screen
-        name="(modals)/basket"
+
+      <Stack.Screen
+        name="categoryDetail/[id]"
         options={{
-          title: "My Carts",
-          headerTintColor: "white",
-          headerStyle: {
-            backgroundColor: "black",
-          },
-          presentation: "modal",
-          headerLeft: () => (
-            <TouchableOpacity
-              onPress={() => router.back()}
-              style={{ marginRight: 5 }}
-            >
-              <Ionicons name="arrow-back-outline" size={22} color="white" />
-            </TouchableOpacity>
-          ),
+          headerTitle: "",
+          headerTransparent: false,
         }}
       />
       <Stack.Screen
-        name="(modals)/listMenu"
+        name="productDetail/[id]"
         options={{
-          title: "Recommended For You",
-          headerTintColor: "white",
-          headerStyle: {
-            backgroundColor: "black",
-          },
-          presentation: "modal",
-          headerLeft: () => (
-            <TouchableOpacity
-              onPress={() => router.back()}
-              style={{ marginRight: 5 }}
-            >
-              <Ionicons name="arrow-back-outline" size={22} color="white" />
-            </TouchableOpacity>
-          ),
+          headerTitle: "",
+          headerTransparent: false,
         }}
       />
-      <Stack.Screen
-        name="(modals)/offer"
-        options={{
-          presentation: "modal",
-          headerLeft: () => (
-            <TouchableOpacity
-              onPress={() => router.back()}
-              style={{ marginRight: 5 }}
-            >
-              <Ionicons name="arrow-back-outline" size={28} />
-            </TouchableOpacity>
-          ),
-        }}
-      /> */}
+
       <Stack.Screen name="+not-found" />
     </Stack>
   );

@@ -1,9 +1,10 @@
-import { Colors } from "@/constants/Colors";
 import { categories } from "@/constants/db";
+import { Link, useRouter } from "expo-router";
 import React from "react";
 import { FlatList, Image, Text, TouchableOpacity, View } from "react-native";
 
 function HomeCategory() {
+  const router = useRouter();
   return (
     <View
       style={{
@@ -11,7 +12,7 @@ function HomeCategory() {
         flexDirection: "row",
         flexWrap: "wrap",
         paddingHorizontal: 10,
-        gap: 10,
+        gap: 30,
         justifyContent: "space-around",
       }}
     >
@@ -25,6 +26,7 @@ function HomeCategory() {
             justifyContent: "center",
             alignItems: "center",
           }}
+          onPress={() => router.push(`/categoryDetail/${item.name}`)}
         >
           <Image source={item.img} style={{ width: 50, height: 50 }} />
           <Text

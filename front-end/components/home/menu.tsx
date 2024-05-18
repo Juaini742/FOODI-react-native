@@ -1,4 +1,7 @@
+import { Link, useRouter } from "expo-router";
 import { Colors } from "@/constants/Colors";
+import { useProducts } from "@/hooks/useProducts";
+import { FontAwesome5, Ionicons } from "@expo/vector-icons";
 import {
   Image,
   ScrollView,
@@ -7,11 +10,11 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import listMenu from "@/constants/menu.json";
-import { FontAwesome5, Ionicons } from "@expo/vector-icons";
-import { Link } from "expo-router";
 
 function HomeMenu() {
+  const router = useRouter();
+  const { products } = useProducts({});
+
   return (
     <View style={{ paddingHorizontal: 10, marginTop: 18 }}>
       <View style={styles.textContainer}>
@@ -24,19 +27,23 @@ function HomeMenu() {
       </View>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         <View style={styles.menuContainer}>
-          {listMenu.map((item, index) => (
-            <TouchableOpacity key={index} style={styles.menuItems}>
+          {products.map((item, index) => (
+            <TouchableOpacity
+              key={index}
+              style={styles.menuItems}
+              onPress={() => router.push(`/productDetail/${item.id}`)}
+            >
               <Image source={{ uri: item.img }} style={styles.img} />
               <View style={styles.menuText}>
                 <View style={styles.locationContainer}>
                   <FontAwesome5 name="store" size={14} color="gray" />
                   <Text
                     style={{
-                      color: "black",
+                      color: "gray",
                       fontSize: 14,
                     }}
                   >
-                    {item.location}
+                    {item.store}
                   </Text>
                 </View>
                 <View style={styles.locationContainer}>
@@ -62,7 +69,7 @@ function HomeMenu() {
                       fontSize: 14,
                     }}
                   >
-                    {item.price}
+                    {item.price.toFixed(3)}
                   </Text>
                 </View>
               </View>

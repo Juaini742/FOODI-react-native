@@ -11,6 +11,9 @@ export const getCartItemByUser = async (req: Request, res: Response) => {
       where: {
         user_id: id,
       },
+      include: {
+        product: true,
+      },
     });
 
     res.status(200).json(carts);
@@ -24,17 +27,21 @@ export const addCartItem = async (req: Request, res: Response) => {
   try {
     const { id } = (req as any).User;
 
-    const product_id = req.params.id;
+    const { quantity, product_id } = req.body;
 
-    if (!product_id) {
+    if (!quantity || !product_id) {
       res.status(400).json({ message: "Some credentials is missing" });
       return;
     }
 
-    const { quantity } = req.body;
+    const cartProductId = await prisma.cart.findFirst({
+      where: {
+        product_id,
+      },
+    });
 
-    if (!quantity) {
-      res.status(400).json({ message: "Some credentials is missing" });
+    if (cartProductId) {
+      res.status(400).json({ message: "Your product already saved" });
       return;
     }
 
@@ -46,7 +53,7 @@ export const addCartItem = async (req: Request, res: Response) => {
       },
     });
 
-    res.status(200).json(cart);
+    res.status(200).json({ message: "success", cart });
   } catch (error) {
     console.error(error.message);
     res.status(500).json("Internal Server Error");

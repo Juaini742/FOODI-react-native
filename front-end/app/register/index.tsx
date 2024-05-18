@@ -14,12 +14,14 @@ import { schema, UserSchema } from "@/interfaces/UserSchema";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Colors } from "@/constants/Colors";
-import { Link, useNavigation } from "expo-router";
+import { Link, useNavigation, useRouter } from "expo-router";
 import { useLayoutEffect } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import InputController from "@/components/InputController";
 import RenderMessageError from "@/components/RenderInputError";
 import ButtonLoading from "@/components/ButtonLoading";
+import { register } from "@/api/public";
+import { useToast } from "@/hooks/useToast";
 
 function Page() {
   const {
@@ -29,11 +31,22 @@ function Page() {
   } = useForm<UserSchema>({
     resolver: zodResolver(schema),
   });
+  const router = useRouter();
+  const { showToast } = useToast();
   const navigation = useNavigation();
 
   const onSubmit: SubmitHandler<UserSchema> = async (data) => {
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    console.log(data);
+    const result = await register(data);
+
+    if (result === undefined) {
+      showToast("Error", "Register failed, please try again");
+    }
+
+    if (result.message === "success") {
+      showToast("Success", "Register was successfully");
+      router.push("(tabs)");
+    }
   };
 
   useLayoutEffect(() => {
@@ -66,7 +79,7 @@ function Page() {
           <View style={styles.wrapper}>
             <View style={styles.imgWrapper}>
               <Image
-                source={require("../../assets/images/sign.png")}
+                source={require("../../assets/images/logo.png")}
                 style={styles.img}
               />
             </View>
@@ -90,6 +103,7 @@ function Page() {
                 placeholder="Email"
                 placeholderTextColor="gray"
                 type="email-address"
+                autoCapitalize="none"
               />
               <RenderMessageError data={errors.email} />
 
@@ -98,6 +112,7 @@ function Page() {
                 name="password"
                 schema={schema}
                 placeholder="Password"
+                secureTextEntry={true}
                 placeholderTextColor="gray"
               />
               <RenderMessageError data={errors.password} />
@@ -176,12 +191,11 @@ const styles = StyleSheet.create({
     alignContent: "center",
   },
   img: {
-    width: 190,
-    height: 190,
+    width: "100%",
+    height: 180,
   },
   container: {
     flex: 1,
-    // backgroundColor: "red",
     flexDirection: "row",
     justifyContent: "center",
     alignContent: "center",

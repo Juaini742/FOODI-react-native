@@ -17,8 +17,16 @@ import {
 import { Colors } from "@/constants/Colors";
 import { rootStyle } from "@/constants/Style";
 import { Link } from "expo-router";
+import { useCart } from "@/hooks/useCart";
+import useCountStore from "@/hooks/useCountStore";
+import { useUser } from "@/hooks/useUser";
 
 function Header() {
+  const { user } = useUser();
+  const { count } = useCountStore() as {
+    count: number;
+  };
+  const { carts } = useCart();
   return (
     <View
       style={{
@@ -38,7 +46,7 @@ function Header() {
           <View style={styles.bio}>
             <Text style={{ color: "white", fontSize: 16 }}>Welcome to</Text>
             <Text style={{ color: "white", fontSize: 17, fontFamily: "bold" }}>
-              Angle Aulia
+              {user?.username}
             </Text>
           </View>
         </View>
@@ -87,7 +95,7 @@ function Header() {
                   right: -2,
                 }}
               >
-                <Text style={{ color: "white", fontSize: 12 }}>99</Text>
+                <Text style={{ color: "white", fontSize: 12 }}>{count}</Text>
               </View>
             </TouchableOpacity>
           </Link>
@@ -100,9 +108,6 @@ function Header() {
           placeholderTextColor="gray"
           focusable
         />
-        {/* <View style={{ position: "absolute", left: 10, top: 12 }}>
-          <Ionicons name="search" size={24} color="gray" />
-        </View> */}
       </View>
     </View>
   );

@@ -1,6 +1,10 @@
-import { rootStyle } from "@/constants/Style";
-import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { useLayoutEffect } from "react";
+import { useNavigation, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
+import { rootStyle } from "@/constants/Style";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import {
   Image,
   TouchableOpacity,
@@ -9,17 +13,14 @@ import {
   View,
   Dimensions,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useNavigation } from "expo-router";
-import { useLayoutEffect } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import ButtonLoading from "@/components/ButtonLoading";
 import InputController from "@/components/InputController";
+import { SafeAreaView } from "react-native-safe-area-context";
 import RenderMessageError from "@/components/RenderInputError";
 import { LoginSchema, schema } from "@/interfaces/loginSchema";
-import { login } from "./login";
+import { login } from "@/api/public";
+import { useToast } from "@/hooks/useToast";
 
 function Page() {
   const {
@@ -31,10 +32,23 @@ function Page() {
   });
   const navigation = useNavigation();
 
+  const { showToast } = useToast();
+
+  const router = useRouter();
+
   const onSubmit: SubmitHandler<LoginSchema> = async (data) => {
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    // console.log(data);
-    login(data);
+
+    const result = await login(data);
+
+    if (result === undefined) {
+      showToast("Error", "Login failed, please try again");
+    }
+
+    if (result.message === "success") {
+      showToast("Success", "Login was successfully");
+      router.push("(tabs)");
+    }
   };
 
   useLayoutEffect(() => {
@@ -67,7 +81,7 @@ function Page() {
           <View style={styles.wrapper}>
             <View style={styles.imgWrapper}>
               <Image
-                source={require("../../assets/images/sign.png")}
+                source={require("../../assets/images/logo.png")}
                 style={styles.img}
               />
             </View>
@@ -164,8 +178,8 @@ const styles = StyleSheet.create({
     alignContent: "center",
   },
   img: {
-    width: 190,
-    height: 190,
+    width: "100%",
+    height: 180,
   },
   container: {
     flex: 1,

@@ -8,7 +8,7 @@ import {
 const router = express.Router();
 
 router.get("/", getCartItemByUser);
-router.post("/:id", addCartItem);
+router.post("/", addCartItem);
 router.put("/:id", updateCartItem);
 router.delete("/:id", deleteCartItem);
 

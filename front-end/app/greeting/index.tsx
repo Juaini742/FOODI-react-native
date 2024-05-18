@@ -4,16 +4,25 @@ import { Dimensions, Image, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
 import { Colors } from "@/constants/Colors";
-import { Link } from "expo-router";
+import { Link, useNavigation } from "expo-router";
+import { useLayoutEffect } from "react";
 
-function Greeting() {
+function Page() {
+  const navigation = useNavigation();
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerShown: false,
+    });
+  }, []);
+
   return (
     <SafeAreaView style={[rootStyle.container]}>
       <StatusBar backgroundColor="black" />
       <View style={styles.content}>
         <View style={styles.imgWrapper}>
           <Image
-            source={require("../assets/images/bg.jpg")}
+            source={require("../../assets/images/bg.jpg")}
             style={styles.img}
           />
         </View>
@@ -23,14 +32,14 @@ function Greeting() {
         >
           <View style={styles.wrapper}>
             <Text style={styles.tagName}>Welcome to</Text>
-            <Text style={styles.tagName}>Makan 🖐</Text>
+            <Text style={styles.tagName}>FOODI 🖐</Text>
             <Text style={styles.text}>
               Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nihil
               facilis fugit sequi autem blanditiis quibusdam quos vel
               accusantium asperiores culpa.
             </Text>
             <Link
-              href="/(tabs)"
+              href="register"
               style={[
                 rootStyle.btnPrimary,
                 {
@@ -92,4 +101,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Greeting;
+export default Page;

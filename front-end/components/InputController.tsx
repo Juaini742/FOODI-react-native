@@ -25,6 +25,7 @@ type Props = {
   placeholder?: string;
   placeholderTextColor?: string;
   secureTextEntry?: boolean;
+  autoCapitalize?: "characters" | "none" | "sentences" | "words";
 };
 
 function InputController({
@@ -35,6 +36,7 @@ function InputController({
   placeholderTextColor,
   secureTextEntry,
   type,
+  autoCapitalize,
 }: Props) {
   return (
     <Controller
@@ -51,6 +53,7 @@ function InputController({
           keyboardType={type}
           placeholderTextColor={placeholderTextColor}
           secureTextEntry={secureTextEntry}
+          autoCapitalize={autoCapitalize}
         />
       )}
       rules={{

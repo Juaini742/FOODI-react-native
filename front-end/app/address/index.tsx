@@ -1,30 +1,34 @@
+import { Colors } from "@/constants/Colors";
+import { addAddress } from "@/api/secured";
+import { rootStyle } from "@/constants/Style";
+import { Ionicons } from "@expo/vector-icons";
+import { RegionType } from "@/interfaces/types";
+import { Link, useNavigation } from "expo-router";
+import { Picker } from "@react-native-picker/picker";
+import { zodResolver } from "@hookform/resolvers/zod";
+import ButtonLoading from "@/components/ButtonLoading";
+import InputController from "@/components/InputController";
+import { useEffect, useLayoutEffect, useState } from "react";
+import { SafeAreaView } from "react-native-safe-area-context";
+import RenderMessageError from "@/components/RenderInputError";
+import { AddressSchema, schema } from "@/interfaces/AddressSchema";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import {
   getDistrict,
   getProvince,
   getRegency,
   getSubDistrict,
 } from "@/api/region";
-import ButtonLoading from "@/components/ButtonLoading";
-import InputController from "@/components/InputController";
-import RenderMessageError from "@/components/RenderInputError";
-import { Colors } from "@/constants/Colors";
-import { rootStyle } from "@/constants/Style";
-import { AddressSchema, schema } from "@/interfaces/AddressSchema";
-import { RegionType } from "@/interfaces/types";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Picker } from "@react-native-picker/picker";
-import { Link, useNavigation } from "expo-router";
-import { useEffect, useLayoutEffect, useState } from "react";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import {
   Image,
   KeyboardAvoidingView,
   Platform,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { useToast } from "@/hooks/useToast";
 
 function Page() {
   const {
@@ -35,6 +39,7 @@ function Page() {
     resolver: zodResolver(schema),
   });
   const navigation = useNavigation();
+  const { showToast } = useToast();
   const [province, setProvince] = useState<RegionType[]>([]);
   const [regency, setRegency] = useState<RegionType[]>([]);
   const [subDistrict, setSubDistrict] = useState<RegionType[]>([]);
@@ -50,13 +55,29 @@ function Page() {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerShown: false,
+      headerTransparent: true,
+      headerTitle: "",
+      headerLeft: () => (
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Ionicons name="chevron-back" size={24} color={"white"} />
+        </TouchableOpacity>
+      ),
+      // headerShown: false,
     });
-  }, []);
+  });
 
   const onSubmit: SubmitHandler<AddressSchema> = async (data) => {
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    console.log(data);
+
+    const result = await addAddress(data);
+
+    if (result.length === 0) {
+      showToast("Error", "Failed update user");
+    }
+
+    if (result.message === "success") {
+      showToast("Success", "Update was successfully");
+    }
   };
 
   const handleProvinceChange = (onChange: any) => {
@@ -285,12 +306,8 @@ function Page() {
             <ButtonLoading
               isSubmitting={isSubmitting}
               onPress={handleSubmit(onSubmit)}
-              title="Go to home page"
+              title="Save data"
             />
-
-            <Link href="/home" style={{ color: "white" }}>
-              go to home
-            </Link>
           </KeyboardAvoidingView>
         </View>
       </View>

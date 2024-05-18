@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { omit } from "../utilities/omit";
 
 const prisma = new PrismaClient();
 
@@ -37,9 +36,11 @@ export const register = async (req: Request, res: Response) => {
       },
     });
 
-    const resData = omit(user, "password");
+    const token = jwt.sign({ userId: user.id }, "secret", {
+      expiresIn: "1d",
+    });
 
-    res.status(200).json({ message: "success", resData });
+    res.status(200).json({ message: "success", token });
   } catch (error) {
     console.error(error);
     res.status(500).json("Internal Server Error");
@@ -127,9 +128,18 @@ export const updateUser = async (req: Request, res: Response) => {
         job,
         phone,
       },
+      select: {
+        id: true,
+        username: true,
+        email: true,
+        born: true,
+        gender: true,
+        phone: true,
+        job: true,
+      },
     });
 
-    res.status(200).json(user);
+    res.status(200).json({ message: "success", user });
   } catch (error) {
     console.error(error.message);
     res.status(500).json("Internal Server Error");

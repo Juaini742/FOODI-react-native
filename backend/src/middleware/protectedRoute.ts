@@ -9,7 +9,7 @@ export const protectedRoute = async (
   res: Response,
   next: NextFunction
 ) => {
-  const token = req.headers.authorization?.split(" ")[1];
+  const token = req.headers.authorization;
 
   try {
     if (!token) {

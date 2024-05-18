@@ -1,72 +1,58 @@
+import { Colors } from "@/constants/Colors";
 import { rootStyle } from "@/constants/Style";
+import BottomSheet from "@gorhom/bottom-sheet";
+import { useLayoutEffect, useMemo, useRef, useState } from "react";
+import { useProducts } from "@/hooks/useProducts";
+import BottomSheetComponent from "@/components/BottomSheet";
+import { AntDesign, FontAwesome5, Ionicons } from "@expo/vector-icons";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import {
-  Dimensions,
   FlatList,
   Image,
-  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
-import listMenu from "@/constants/menu.json";
-import { Colors } from "@/constants/Colors";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { AntDesign, FontAwesome5 } from "@expo/vector-icons";
-import { useMemo, useRef, useState } from "react";
-import BottomSheet from "@gorhom/bottom-sheet";
-import BottomSheetComponent from "@/components/BottomSheet";
-import { categories } from "@/constants/db";
+import { useLocalSearchParams, useNavigation } from "expo-router";
+import { ProductType } from "@/interfaces/productType";
 
 function Page() {
+  const navigation = useNavigation();
+  const { id } = useLocalSearchParams<{ id: string }>();
   const bottomSheetRef = useRef<BottomSheet>(null);
   const snapPoints = useMemo(() => ["13%", "100%"], []);
-  const [selectedId, setSelectedId] = useState<any>(1);
+  const [selectedId, setSelectedId] = useState<string>("");
+  const { products } = useProducts({ category: id });
+  const product = products.find((item) => item.id === selectedId);
 
-  const handleSelect = (id: number) => {
+  const handleSelect = (id: string) => {
     bottomSheetRef.current?.collapse();
     setSelectedId(id);
-    console.log(id);
   };
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerTransparent: true,
+      headerTitle: "",
+      headerLeft: () => (
+        <View
+          style={{ backgroundColor: "white", padding: 5, borderRadius: 100 }}
+        >
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <Ionicons name="chevron-back" size={24} color={"black"} />
+          </TouchableOpacity>
+        </View>
+      ),
+    });
+  });
 
   return (
     <GestureHandlerRootView>
       <View style={[rootStyle.container, { marginBottom: 30 }]}>
         <View style={styles.content}>
-          <View
-            style={{
-              flexDirection: "row",
-              width: Dimensions.get("window").width,
-            }}
-          >
-            <FlatList
-              data={categories}
-              renderItem={({ item }) => (
-                <TouchableOpacity
-                  style={{
-                    flexDirection: "row",
-                    gap: 3,
-                    borderWidth: 1,
-                    borderColor: Colors.primary,
-                    paddingVertical: 8,
-                    paddingHorizontal: 9,
-                    borderRadius: 100,
-                    marginHorizontal: 3,
-                    alignItems: "center",
-                  }}
-                >
-                  <Image source={item.img} style={{ width: 20, height: 20 }} />
-                  <Text style={{ color: "white" }}>{item.name}</Text>
-                </TouchableOpacity>
-              )}
-              keyExtractor={(item) => item.id.toString()}
-              horizontal={true}
-              showsHorizontalScrollIndicator={false}
-              contentContainerStyle={{ paddingRight: 25 }}
-            />
-          </View>
           <FlatList
-            data={listMenu}
+            data={products}
             renderItem={({ item, index }) => (
               <TouchableOpacity
                 key={index}
@@ -81,6 +67,7 @@ function Page() {
                       fontSize: 22,
                       fontFamily: "bold",
                       lineHeight: 24,
+                      width: 170,
                     }}
                   >
                     {item.name}
@@ -94,7 +81,7 @@ function Page() {
                           fontSize: 14,
                         }}
                       >
-                        {item.location} |
+                        {item.store} |
                       </Text>
                     </View>
                     <View style={styles.locationstar}>
@@ -131,7 +118,7 @@ function Page() {
       <BottomSheetComponent
         bottomSheetRef={bottomSheetRef}
         snapPoints={snapPoints}
-        selectedId={selectedId}
+        product={product as ProductType}
       />
     </GestureHandlerRootView>
   );
@@ -140,8 +127,9 @@ function Page() {
 const styles = StyleSheet.create({
   content: {
     paddingHorizontal: 14,
-    marginBottom: 70,
+    marginBottom: 115,
     width: "100%",
+    marginTop: 80,
   },
 
   itemContainer: {

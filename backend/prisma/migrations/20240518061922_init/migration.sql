@@ -4,7 +4,7 @@ CREATE TABLE `User` (
     `username` VARCHAR(191) NOT NULL,
     `born` VARCHAR(191) NULL,
     `gender` VARCHAR(191) NULL,
-    `phone` INTEGER NULL,
+    `phone` VARCHAR(191) NULL,
     `job` VARCHAR(191) NULL,
     `email` VARCHAR(191) NOT NULL,
     `password` VARCHAR(191) NOT NULL,

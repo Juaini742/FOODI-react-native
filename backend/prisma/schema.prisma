@@ -18,7 +18,7 @@ model User {
   username     String
   born         String?
   gender       String?
-  phone        Int?
+  phone        String?
   job          String?
   email        String
   password     String

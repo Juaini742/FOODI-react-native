@@ -24,7 +24,7 @@ export const addAddress = async (req: Request, res: Response) => {
         completeAddress,
       },
     });
-    res.status(200).json(address);
+    res.status(200).json({ message: "success", address });
   } catch (error) {
     console.error(error.message);
     res.status(500).json("Internal Server Error");
